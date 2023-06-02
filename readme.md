@@ -55,21 +55,21 @@ b = 1 + 2 * 3 - ( 8 / 4 * sqrt( a * a ) + -b) 被解析成  Term = Expr
 ![图片](https://github.com/xy27/calculator/blob/main/node.png "Node继承体系")  
 ### 2.Node节点类  
 ```c++
-Noncopyable  tag类 表示所有的Node都是不可以拷贝的
-Node 抽象类 提供一个 Calc()接口 返回表达式的值
+Noncopyable  		tag类 表示所有的Node都是不可以拷贝的
+Node 				抽象类 提供一个 Calc()接口 返回表达式的值
 
-MultipleNode 抽象类
-ProductNode 具体类 继承自MultipleNode 为Factor {('*' | '/') Factor }建模
-SumNode 具体类 继承自MultipleNode 为Term{('+' | '-') Term }建模
+MultipleNode 		抽象类
+ProductNode 		具体类 继承自MultipleNode 为Factor {('*' | '/') Factor }建模
+SumNode 			具体类 继承自MultipleNode 为Term{('+' | '-') Term }建模
 
-BinaryNode 抽象类
-AssignNode 具体类 继承自BinaryNode 为Term = Expr建模
+BinaryNode 			抽象类
+AssignNode 			具体类 继承自BinaryNode 为Term = Expr建模
 
-NumberNode 具体类 为Number建模
+NumberNode 			具体类 为Number建模
 
-UnaryNode 抽象类
-UMinusNode 具体类 继承自UnaryNode 为'-'Factor建模
-FunctionNode 具体类 继承自UnaryNode 为Function建模
+UnaryNode 			抽象类
+UMinusNode 			具体类 继承自UnaryNode 为'-'Factor建模
+FunctionNode 		具体类 继承自UnaryNode 为Function建模
 ```
 ### 3.几个重要的类  
 ```c++
@@ -80,22 +80,19 @@ Calc		表示计算器，存有符号表，函数表，变量表，支持序列�
 
 ### 4.其它的类  
 ```C++
-SymbolTable		 	存储符号信息，比如，函数，变量
-FunctionTable	  	存储函数表，大小固定
-Storage			    存储变量表，大小不固定
-CommandParser	    支持简单命令，例如，help,显示函数表，变量表，序列化命令
-Exception  	         简单异常类
-Serial		        简单序列化类，主要用来保存，函数，变量的信息（用处不是很大）
-Tracer		        自定义简单的动态内存使用情况跟踪器，用于调试，检测程序是否有内存泄露
+SymbolTable			存储符号信息，比如，函数，变量
+FunctionTable		存储函数表，大小固定
+Storage				存储变量表，大小不固定
+CommandParser		支持简单命令，例如，help,显示函数表，变量表，序列化命令
+Exception			简单异常类
+Serial				简单序列化类，主要用来保存，函数，变量的信息（用处不是很大）
+Tracer				自定义简单的动态内存使用情况跟踪器，用于调试，检测程序是否有内存泄露
 ```
 ### 5.其他特点  
 ```c++
 使用C++11特性
 使用智能指针，无需显示的delete
 自定义简单的动态内存使用情况跟踪器，检测是否有内存泄露
-
-前向声明的好处？
-减少编译时间，实际比较过没？
 ```
 ### 代码统计  
 ![图片](https://github.com/xy27/calculator/blob/main/cloc.png "1")  
