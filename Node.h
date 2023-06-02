@@ -28,7 +28,7 @@ public:
 
 	// 这两个虚函数有必要吗？
 	virtual bool IsLvalue() const { return false; }	// 提供默认实现
-	virtual void Assign(double)						// 提供默认实现
+	virtual void Assign(double)                     // 提供默认实现
 	{
 		assert(!"Assign called incorrectlly.");
 	}

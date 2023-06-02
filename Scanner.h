@@ -1,7 +1,6 @@
 ﻿#ifndef _SCANNER_H_
 #define _SCANNER_H_
 #include <string>
-//#include <iostream>
 
 enum EToken
 {
@@ -23,6 +22,7 @@ class Scanner
 {
 public:
 	explicit Scanner(std::istream& in);
+	~Scanner() = default;
 
 	void Accept();
 	void AcceptCommand();

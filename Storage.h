@@ -6,10 +6,12 @@
 
 class SymbolTable;
 
+
 class Storage : public Serializable
 {
 public:
 	Storage(SymbolTable& tbl);
+	~Storage() = default;
 
 	void Serialize(Serializer& out) const override;
 	void DeSerialize(DeSerializer& in) override;
