@@ -1,7 +1,7 @@
-# 面向对象表达式计算器
+# 表达式计算器
 
 ## 基本功能
-#### 使用面向对象的程序设计方式，实现一个表达式计算器，支持表达式计算，函数，变量，简单的命令
+#### 使用面向对象的程序设计方式，依据递归下降解析算法，实现一个表达式计算器，支持表达式计算，函数，变量，简单的命令
 
 #### 例子
 ```c++
@@ -12,7 +12,7 @@ b = 1 + 2 * 3 - ( 8 / 4 * sqrt(a * a) + -b )
 
 ## 如何解析表达式  
 ### 1.逆波兰表达式  
-    先把中缀表达式转换成后缀表达式，然后再计算表达式的值。灵活性不够，很难支持函数功能？表达能力不够强。
+    先把中缀表达式转换成后缀表达式，然后再计算表达式的值。灵活性不够，很难支持函数功能？表达能力不够强，未采用
 ### 2.巴科斯范式（BNF）  
 ```c++
 表达式的BNF表示
@@ -47,7 +47,7 @@ b = 1 + 2 * 3 - ( 8 / 4 * sqrt( a * a ) + -b) 被解析成  Term = Expr
 8 / 4 * sqrt( a * a )  被解析成  Factor {('*' | '/') Factor }
 -b    被解析成          '-'Factor 
     
-根据上面的分析可知，可以利用递归下降法，解析任意合法的表达式，为了能够实现上述表达式的实际计算，需要设计一个Node（计算节点）继承体系，来为各种运算关系建模。
+    根据上面的分析可知，可以利用递归下降法，解析任意合法的表达式，为了能够实现上述表达式的实际计算，需要设计一个Node（计算节点）继承体系，来为各种运算关系建模。
 ```
 
 ## 设计实现  
@@ -55,21 +55,21 @@ b = 1 + 2 * 3 - ( 8 / 4 * sqrt( a * a ) + -b) 被解析成  Term = Expr
 ![图片](https://github.com/xy27/calculator/blob/main/node.png "Node继承体系")  
 ### 2.Node节点类  
 ```c++
-Noncopyable  		tag类 表示所有的Node都是不可以拷贝的
-Node 				抽象类 提供一个 Calc()接口 返回表达式的值
+Noncopyable			tag类 表示所有的Node都是不可以拷贝的
+Node			抽象类 提供一个 Calc()接口 返回表达式的值
 
-MultipleNode 		抽象类
-ProductNode 		具体类 继承自MultipleNode 为Factor {('*' | '/') Factor }建模
-SumNode 			具体类 继承自MultipleNode 为Term{('+' | '-') Term }建模
+MultipleNode			抽象类
+ProductNode			具体类 继承自MultipleNode 为Factor {('*' | '/') Factor }建模
+SumNode			具体类 继承自MultipleNode 为Term{('+' | '-') Term }建模
 
-BinaryNode 			抽象类
-AssignNode 			具体类 继承自BinaryNode 为Term = Expr建模
+BinaryNode			抽象类
+AssignNode			具体类 继承自BinaryNode 为Term = Expr建模
 
-NumberNode 			具体类 为Number建模
+NumberNode			具体类 为Number建模
 
-UnaryNode 			抽象类
-UMinusNode 			具体类 继承自UnaryNode 为'-'Factor建模
-FunctionNode 		具体类 继承自UnaryNode 为Function建模
+UnaryNode			抽象类
+UMinusNode			具体类 继承自UnaryNode 为'-'Factor建模
+FunctionNode			具体类 继承自UnaryNode 为Function建模
 ```
 ### 3.几个重要的类  
 ```c++
@@ -81,9 +81,9 @@ Calc		表示计算器，存有符号表，函数表，变量表，支持序列�
 ### 4.其它的类  
 ```C++
 SymbolTable			存储符号信息，比如，函数，变量
-FunctionTable		存储函数表，大小固定
+FunctionTable			存储函数表，大小固定
 Storage				存储变量表，大小不固定
-CommandParser		支持简单命令，例如，help,显示函数表，变量表，序列化命令
+CommandParser			支持简单命令，例如，help,显示函数表，变量表，序列化命令
 Exception			简单异常类
 Serial				简单序列化类，主要用来保存，函数，变量的信息（用处不是很大）
 Tracer				自定义简单的动态内存使用情况跟踪器，用于调试，检测程序是否有内存泄露
